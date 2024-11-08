@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DataMobil;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -19,10 +20,17 @@ class HomeController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function getDataMobil()
     {
-        //
+        $data = DataMobil::orderBy('created_at', 'desc')->get();
+        return response()->json([
+            'success' => true,
+            'message' => 'Data Mobil',
+            'data' => $data
+        ]);
     }
+
+    
 
     /**
      * Store a newly created resource in storage.
