@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-		<!-- Basic Page Info -->
+    	<!-- Basic Page Info -->
 		<meta charset="utf-8" />
 		<title>@yield('title') - {{env('APP_NAME')}}</title>
 
@@ -29,17 +26,11 @@
 			type="text/css"
 			href="{{asset('deskapp')}}/vendors/styles/icon-font.min.css"
 		/>
-		<link
-			rel="stylesheet"
-			type="text/css"
-			href="{{asset('deskapp')}}/src/plugins/datatables/css/dataTables.bootstrap4.min.css"
-		/>
-		<link
-			rel="stylesheet"
-			type="text/css"
-			href="{{asset('deskapp')}}/src/plugins/datatables/css/responsive.bootstrap4.min.css"
-		/>
+		@stack('styles')
 		<link rel="stylesheet" type="text/css" href="{{asset('deskapp')}}/vendors/styles/style.css" />
+
+		<!-- Scripts -->
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
 	</head>
 	<body>
 		{{-- <div class="pre-loader">
@@ -58,68 +49,6 @@
 		<div class="header">
 			<div class="header-left">
 				<div class="menu-icon bi bi-list"></div>
-				{{-- <div
-					class="search-toggle-icon bi bi-search"
-					data-toggle="header_search"
-				></div>
-				<div class="header-search">
-					<form>
-						<div class="form-group mb-0">
-							<i class="dw dw-search2 search-icon"></i>
-							<input
-								type="text"
-								class="form-control search-input"
-								placeholder="Search Here"
-							/>
-							<div class="dropdown">
-								<a
-									class="dropdown-toggle no-arrow"
-									href="#"
-									role="button"
-									data-toggle="dropdown"
-								>
-									<i class="ion-arrow-down-c"></i>
-								</a>
-								<div class="dropdown-menu dropdown-menu-right">
-									<div class="form-group row">
-										<label class="col-sm-12 col-md-2 col-form-label"
-											>From</label
-										>
-										<div class="col-sm-12 col-md-10">
-											<input
-												class="form-control form-control-sm form-control-line"
-												type="text"
-											/>
-										</div>
-									</div>
-									<div class="form-group row">
-										<label class="col-sm-12 col-md-2 col-form-label">To</label>
-										<div class="col-sm-12 col-md-10">
-											<input
-												class="form-control form-control-sm form-control-line"
-												type="text"
-											/>
-										</div>
-									</div>
-									<div class="form-group row">
-										<label class="col-sm-12 col-md-2 col-form-label"
-											>Subject</label
-										>
-										<div class="col-sm-12 col-md-10">
-											<input
-												class="form-control form-control-sm form-control-line"
-												type="text"
-											/>
-										</div>
-									</div>
-									<div class="text-right">
-										<button class="btn btn-primary">Search</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</form>
-				</div> --}}
 			</div>
 			<div class="header-right">
 				<div class="dashboard-setting user-notification">
@@ -143,22 +72,13 @@
 							data-toggle="dropdown"
 						>
 							<span class="user-icon">
-								<img src="{{asset('deskapp')}}/vendors/images/photo1.jpg" alt="" />
+								<img src="{{asset('website-resource/avatar-default.jpg')}}" alt="Foto Profile" />
 							</span>
 							<span class="user-name">{{Auth::user()->nama_lengkap}}</span>
 						</a>
 						<div
 							class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list"
 						>
-							<a class="dropdown-item" href="profile.html"
-								><i class="dw dw-user1"></i> Profile</a
-							>
-							<a class="dropdown-item" href="profile.html"
-								><i class="dw dw-settings2"></i> Setting</a
-							>
-							<a class="dropdown-item" href="faq.html"
-								><i class="dw dw-help"></i> Help</a
-							>
 							<a class="dropdown-item" href="{{route('logout')}}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                                 <i class="dw dw-logout"></i> Log Out
 
@@ -345,11 +265,12 @@
 		<div class="left-side-bar">
 			<div class="brand-logo">
 				<a href="index.html">
-					<img src="{{asset('deskapp')}}/vendors/images/deskapp-logo.svg" alt="" class="dark-logo" />
+					<img src="{{env('APP_LOGO')}}" width="75px" alt="Logo Aplikasi" class="dark-logo mx-auto" />
 					<img
-						src="{{asset('deskapp')}}/vendors/images/deskapp-logo-white.svg"
-						alt=""
-						class="light-logo"
+						src="{{env('APP_LOGO')}}"
+						width="75px"
+						alt="Logo Aplikasi"
+						class="light-logo mx-auto"
 					/>
 				</a>
 				<div class="close-sidebar" data-toggle="left-sidebar-close">
@@ -367,34 +288,74 @@
 							</a>
 						</li>
 
-                        <!--! Data Mobil -->
-                        <li>
-							<a href="{{route('dataMobilAdmin')}}" class="dropdown-toggle no-arrow">
-								<span class="micon bi bi-car-front">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-car-front" viewBox="0 0 16 16">
-                                        <path d="M4 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0m10 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M6 8a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2zM4.862 4.276 3.906 6.19a.51.51 0 0 0 .497.731c.91-.073 2.35-.17 3.597-.17s2.688.097 3.597.17a.51.51 0 0 0 .497-.731l-.956-1.913A.5.5 0 0 0 10.691 4H5.309a.5.5 0 0 0-.447.276"/>
-                                        <path d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679q.05.242.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.745.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.892c-.61-.454-1-1.183-1-1.997v-.413a2.5 2.5 0 0 1 .049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.8.8 0 0 0 .381-.404l.792-1.848ZM4.82 3a1.5 1.5 0 0 0-1.379.91l-.792 1.847a1.8 1.8 0 0 1-.853.904.8.8 0 0 0-.43.564L1.03 8.904a1.5 1.5 0 0 0-.03.294v.413c0 .796.62 1.448 1.408 1.484 1.555.07 3.786.155 5.592.155s4.037-.084 5.592-.155A1.48 1.48 0 0 0 15 9.611v-.413q0-.148-.03-.294l-.335-1.68a.8.8 0 0 0-.43-.563 1.8 1.8 0 0 1-.853-.904l-.792-1.848A1.5 1.5 0 0 0 11.18 3z"/>
-                                      </svg>
-                                </span>
-                                <span class="mtext">Data Mobil</span>
-							</a>
-						</li>
+						
+						@if (Auth::user()->role_id == 1)
+							<!--! Data Mobil -->
+							<li>
+								<a href="{{route('dataMobilAdmin')}}" class="dropdown-toggle no-arrow">
+									<span class="micon bi bi-car-front">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-car-front" viewBox="0 0 16 16">
+											<path d="M4 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0m10 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M6 8a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2zM4.862 4.276 3.906 6.19a.51.51 0 0 0 .497.731c.91-.073 2.35-.17 3.597-.17s2.688.097 3.597.17a.51.51 0 0 0 .497-.731l-.956-1.913A.5.5 0 0 0 10.691 4H5.309a.5.5 0 0 0-.447.276"/>
+											<path d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679q.05.242.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.745.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.892c-.61-.454-1-1.183-1-1.997v-.413a2.5 2.5 0 0 1 .049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.8.8 0 0 0 .381-.404l.792-1.848ZM4.82 3a1.5 1.5 0 0 0-1.379.91l-.792 1.847a1.8 1.8 0 0 1-.853.904.8.8 0 0 0-.43.564L1.03 8.904a1.5 1.5 0 0 0-.03.294v.413c0 .796.62 1.448 1.408 1.484 1.555.07 3.786.155 5.592.155s4.037-.084 5.592-.155A1.48 1.48 0 0 0 15 9.611v-.413q0-.148-.03-.294l-.335-1.68a.8.8 0 0 0-.43-.563 1.8 1.8 0 0 1-.853-.904l-.792-1.848A1.5 1.5 0 0 0 11.18 3z"/>
+										</svg>
+									</span>
+									<span class="mtext">Data Mobil</span>
+								</a>
+							</li>
 
-                        <!--! Data Peminjaman -->
-                        <li>
-							<a href="{{ route('dataPeminjamanAdmin') }}" class="dropdown-toggle no-arrow">
-								<span class="micon bi bi-file-earmark-arrow-up-fill"></span
-								><span class="mtext">Data Peminjaman</span>
-							</a>
-						</li>
+							<!--! Metode Pembayaran -->
+							<li>
+								<a href="{{ route('metodePembayaran') }}" class="dropdown-toggle no-arrow">
+									<span class="micon bi bi-wallet2"></span
+									><span class="mtext">Metode Pembayaran</span>
+								</a>
+							</li>
 
-                        <!--! Data Pengembalian -->
-                        <li>
-							<a href="{{ route('dataPengembalianAdmin') }}" class="dropdown-toggle no-arrow">
-								<span class="micon bi bi-file-earmark-arrow-down-fill"></span
-								><span class="mtext">Data Pengembalian</span>
-							</a>
-						</li>
+							<!--! Data Peminjaman -->
+							<li>
+								<a href="{{ route('dataPeminjamanAdmin') }}" class="dropdown-toggle no-arrow">
+									<span class="micon bi bi-file-earmark-arrow-up-fill"></span
+									><span class="mtext">Data Peminjaman</span>
+								</a>
+							</li>
+
+							<!--! Data Pengembalian -->
+							<li>
+								<a href="{{ route('dataPengembalianAdmin') }}" class="dropdown-toggle no-arrow">
+									<span class="micon bi bi-file-earmark-arrow-down-fill"></span
+									><span class="mtext">Data Pengembalian</span>
+								</a>
+							</li>
+						@else
+							<!--! Data Mobil -->
+							<li>
+								<a href="{{route('dataMobilUser')}}" class="dropdown-toggle no-arrow">
+									<span class="micon bi bi-car-front">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-car-front" viewBox="0 0 16 16">
+											<path d="M4 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0m10 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M6 8a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2zM4.862 4.276 3.906 6.19a.51.51 0 0 0 .497.731c.91-.073 2.35-.17 3.597-.17s2.688.097 3.597.17a.51.51 0 0 0 .497-.731l-.956-1.913A.5.5 0 0 0 10.691 4H5.309a.5.5 0 0 0-.447.276"/>
+											<path d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679q.05.242.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.745.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.892c-.61-.454-1-1.183-1-1.997v-.413a2.5 2.5 0 0 1 .049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.8.8 0 0 0 .381-.404l.792-1.848ZM4.82 3a1.5 1.5 0 0 0-1.379.91l-.792 1.847a1.8 1.8 0 0 1-.853.904.8.8 0 0 0-.43.564L1.03 8.904a1.5 1.5 0 0 0-.03.294v.413c0 .796.62 1.448 1.408 1.484 1.555.07 3.786.155 5.592.155s4.037-.084 5.592-.155A1.48 1.48 0 0 0 15 9.611v-.413q0-.148-.03-.294l-.335-1.68a.8.8 0 0 0-.43-.563 1.8 1.8 0 0 1-.853-.904l-.792-1.848A1.5 1.5 0 0 0 11.18 3z"/>
+										</svg>
+									</span>
+									<span class="mtext">Data Mobil</span>
+								</a>
+							</li>
+
+							<!--! Data Peminjaman -->
+							<li>
+								<a href="{{ route('dataPeminjamanUser') }}" class="dropdown-toggle no-arrow">
+									<span class="micon bi bi-file-earmark-arrow-up-fill"></span
+									><span class="mtext">Pinjamanku</span>
+								</a>
+							</li>
+
+							<!--! Data Pengembalian -->
+							<li>
+								<a href="{{ route('dataPengembalianUser') }}" class="dropdown-toggle no-arrow">
+									<span class="micon bi bi-file-earmark-arrow-down-fill"></span
+									><span class="mtext">Pengembalianku</span>
+								</a>
+							</li>
+						@endif
 
                         <!-- Logout -->
 						<li>
@@ -416,18 +377,14 @@
 		@yield('content')
         
         <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 		<!-- js -->
 		<script src="{{asset('deskapp')}}/vendors/scripts/core.js"></script>
 		<script src="{{asset('deskapp')}}/vendors/scripts/script.min.js"></script>
 		<script src="{{asset('deskapp')}}/vendors/scripts/process.js"></script>
 		<script src="{{asset('deskapp')}}/vendors/scripts/layout-settings.js"></script>
-		<script src="{{asset('deskapp')}}/src/plugins/apexcharts/apexcharts.min.js"></script>
-		<script src="{{asset('deskapp')}}/src/plugins/datatables/js/jquery.dataTables.min.js"></script>
-		<script src="{{asset('deskapp')}}/src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
-		<script src="{{asset('deskapp')}}/src/plugins/datatables/js/dataTables.responsive.min.js"></script>
-		<script src="{{asset('deskapp')}}/src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
+		{{-- <script src="{{asset('deskapp')}}/src/plugins/apexcharts/apexcharts.min.js"></script> --}}
 
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         @stack('scripts')
         @include('sweetalert::alert')
 	</body>

@@ -13,17 +13,19 @@ return new class extends Migration
     {
         Schema::create('data_peminjamans', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('peminjam_id');
+            $table->foreign('peminjam_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('mobil_id');
             $table->foreign('mobil_id')->references('id')->on('data_mobils')->onDelete('cascade');
             $table->date('tanggal_peminjaman');
             $table->date('tanggal_pengembalian');
             $table->decimal('nominal_pembayaran', 13,2);
-            $table->unsignedBigInteger('metode_pembayaran_id');
+            $table->unsignedBigInteger('metode_pembayaran_id')->nullable();
             $table->foreign('metode_pembayaran_id')->references('id')->on('metode_pembayarans')->onDelete('cascade');
+            $table->string('bukti_pembayaran')->nullable();
             $table->enum('status_pembayaran', ['Paid', 'Unpaid'])->default('Unpaid');
             $table->enum('status_verifikasi', ['Verified', 'Unverified'])->default('Unverified');
+            $table->enum('status_mobil', ['Garasi', 'Diambil', 'Dikembalikan'])->default('Garasi');
             $table->timestamps();
         });
     }
